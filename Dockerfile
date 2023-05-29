@@ -11,7 +11,10 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Menyalin kode aplikasi ke dalam image
-COPY . .
+COPY app/ .
+
+# Menyalin file credentials.json ke dalam image
+COPY credentials.json .
 
 # Menjalankan aplikasi
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
