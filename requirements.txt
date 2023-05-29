@@ -1,3 +1,6 @@
 fastapi
-pydantic
 uvicorn
+tensorflow
+Pillow
+numpy
+python-multipart

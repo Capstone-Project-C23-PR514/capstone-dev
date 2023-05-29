@@ -1,11 +1,17 @@
+# Menggunakan base image Python
 FROM python:3.9
 
-WORKDIR /code
+# Mengatur direktori kerja
+WORKDIR /app
 
-COPY ./requirements.txt /code/requirements.txt
+# Menyalin file requirements.txt ke dalam image
+COPY requirements.txt .
 
-RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
+# Menginstal dependensi
+RUN pip install --no-cache-dir -r requirements.txt
 
-COPY ./app /code/app
+# Menyalin kode aplikasi ke dalam image
+COPY . .
 
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]
+# Menjalankan aplikasi
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
