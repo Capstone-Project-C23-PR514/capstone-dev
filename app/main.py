@@ -5,33 +5,21 @@ from PIL import Image
 import numpy as np
 from fastapi import FastAPI, UploadFile, File
 from google.cloud import storage
+import requests
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "credentials.json"
 
-model_bucket_name = 'road-crack-model'
-image_bucket_name = 'result-images-691211'
+bucket_name = 'road-crack-model'
 model_filename = 'model_CNN.h5'
+backend_url = 'http://localhost:3000'  # Ganti dengan URL backend Express.js
 
 app = FastAPI()
 client = storage.Client()
-
-# Download model jika belum ada
-model_bucket = client.get_bucket(model_bucket_name)
-model_blob = model_bucket.blob(model_filename)
-if os.path.exists(model_filename):
-    print("Model already exists, skipping download.")
-else:
-    model_blob.download_to_filename(model_filename)
-
-# Load model
+bucket = client.get_bucket(bucket_name)
+blob = bucket.blob(model_filename)
+blob.download_to_filename(model_filename)
 model = keras.models.load_model(model_filename)
 class_names = ['crack', 'pothole']
-
-# Upload gambar ke bucket result-images-691211
-def upload_image_to_bucket(image, filename):
-    image_bucket = client.get_bucket(image_bucket_name)
-    blob = image_bucket.blob(filename)
-    blob.upload_from_file(image, content_type='image/jpeg')
 
 @app.post('/predict')
 async def predict(image: UploadFile = File(...)):
@@ -43,9 +31,10 @@ async def predict(image: UploadFile = File(...)):
     predicted_class_index = np.argmax(predictions[0])
     predicted_class = class_names[predicted_class_index]
     
-    # Upload gambar ke bucket result-images-691211
-    image.seek(0)
-    upload_image_to_bucket(image.file, image.filename)
+    # Mengirimkan hasil prediksi ke backend Express.js
+    files = {'gambar': (image.filename, image.file)}
+    payload = {'lokasi': 'lokasi', 'desc': predicted_class}
+    response = requests.post(f"{backend_url}/reports/upload", files=files, data=payload)
     
     return {'prediction': predicted_class}
 
