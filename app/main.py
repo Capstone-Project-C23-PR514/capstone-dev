@@ -8,17 +8,30 @@ from google.cloud import storage
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "credentials.json"
 
-
-bucket_name = 'road-crack-model'
+model_bucket_name = 'road-crack-model'
+image_bucket_name = 'result-images-691211'
 model_filename = 'model_CNN.h5'
 
 app = FastAPI()
 client = storage.Client()
-bucket = client.get_bucket(bucket_name)
-blob = bucket.blob(model_filename)
-blob.download_to_filename(model_filename)
+
+# Download model jika belum ada
+model_bucket = client.get_bucket(model_bucket_name)
+model_blob = model_bucket.blob(model_filename)
+if os.path.exists(model_filename):
+    print("Model already exists, skipping download.")
+else:
+    model_blob.download_to_filename(model_filename)
+
+# Load model
 model = keras.models.load_model(model_filename)
 class_names = ['crack', 'pothole']
+
+# Upload gambar ke bucket result-images-691211
+def upload_image_to_bucket(image, filename):
+    image_bucket = client.get_bucket(image_bucket_name)
+    blob = image_bucket.blob(filename)
+    blob.upload_from_file(image, content_type='image/jpeg')
 
 @app.post('/predict')
 async def predict(image: UploadFile = File(...)):
@@ -29,6 +42,11 @@ async def predict(image: UploadFile = File(...)):
     predictions = model.predict(img)
     predicted_class_index = np.argmax(predictions[0])
     predicted_class = class_names[predicted_class_index]
+    
+    # Upload gambar ke bucket result-images-691211
+    image.seek(0)
+    upload_image_to_bucket(image.file, image.filename)
+    
     return {'prediction': predicted_class}
 
 if __name__ == '__main__':
