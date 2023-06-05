@@ -3,7 +3,7 @@ const cors = require('cors')
 const port = 8080
 const path = require('path')
 
-const sequelize = require('./database/databaseConfig')
+const sequelize = require('./database/db_config')
 sequelize.sync().then(() => {
     console.log('Program is ready to run!')
 })

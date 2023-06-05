@@ -1,5 +1,5 @@
 const { Model, DataTypes } = require('sequelize')
-const sequelize = require('../database/databaseConfig')
+const sequelize = require('../database/db_config')
 const UsersModel = require('./users')
 
 class Report extends Model {}
