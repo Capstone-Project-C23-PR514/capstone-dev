@@ -1,20 +1,15 @@
-# Menggunakan base image Python
-FROM python:3.9
+FROM node:18
 
-# Mengatur direktori kerja
+# Set working directory
 WORKDIR /app
 
-# Menyalin file requirements.txt ke dalam image
-COPY requirements.txt .
+# Copy package.json and package-lock.json
+COPY package*.json ./
 
-# Menginstal dependensi
-RUN pip install --no-cache-dir -r requirements.txt
+RUN npm install
 
-# Menyalin kode aplikasi ke dalam image
-COPY app/ .
+# Copy the rest of the application code
+COPY . .
 
-# Menyalin file credentials.json ke dalam image
-COPY credentials.json .
-
-# Menjalankan aplikasi
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]
+# Start the application
+CMD ["npm", "start"]
