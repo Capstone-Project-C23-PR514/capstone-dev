@@ -17,6 +17,13 @@ backend_url = 'http://localhost:8080'
 app = FastAPI()
 client = storage.Client()
 bucket = client.get_bucket(bucket_name)
+blob = bucket.blob(model_filename)
+blob.download_to_filename(model_filename)
+model_downloaded = False
+
+if not os.path.exists(model_filename):
+    blob.download_to_filename(model_filename)
+    model_downloaded = True
 
 model = keras.models.load_model(model_filename)
 class_names = ['crack', 'pothole']
