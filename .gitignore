@@ -1,2 +1,4 @@
 node_modules
 credentials.json
+model_CNN.h5
+__pycache__
