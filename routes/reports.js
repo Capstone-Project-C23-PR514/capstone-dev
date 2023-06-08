@@ -17,6 +17,7 @@ router.post('/upload', auth, async (req, res) => {
     // Simpan data ke dalam tabel reports menggunakan model Report
     const report = await ReportsModel.create({
       user_id,
+      judul,
       gambar,
       lokasi,
       desc,
