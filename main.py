@@ -29,7 +29,7 @@ model = keras.models.load_model(model_filename)
 class_names = ['crack', 'pothole']
 
 @app.post('/predict')
-async def predict(lokasi: str = Form(...),image: UploadFile = File(...), authorization: str = Header(None)):
+async def predict(judul: str = Form(...), lokasi: str = Form(...),image: UploadFile = File(...), authorization: str = Header(None)):
     if not authorization:
         return {'error': 'Unauthorized'}
     
@@ -51,10 +51,10 @@ async def predict(lokasi: str = Form(...),image: UploadFile = File(...), authori
     gambar_url = blob.public_url
     
     headers = {'Authorization': token}
-    payload = {'lokasi': lokasi, 'desc': predicted_class, 'akurasi': accuracy, 'gambar': gambar_url}
+    payload = {'judul': judul, 'lokasi': lokasi, 'desc': predicted_class, 'akurasi': accuracy, 'gambar': gambar_url}
     response = requests.post(f"{backend_url}/reports/upload", json=payload, headers=headers)
     
-    return {'prediction': predicted_class, 'lokasi': lokasi, 'akurasi': accuracy, 'gambar': gambar_url}
+    return {'judul': judul, 'gambar': gambar_url, 'lokasi': lokasi, 'desc': predicted_class,  'akurasi': accuracy, }
 
 if __name__ == '__main__':
     uvicorn.run(app, host='0.0.0.0', port=int(os.environ.get('PORT', 3000)))
