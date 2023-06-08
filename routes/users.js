@@ -13,6 +13,7 @@ const auth = require('../middleware/auth')
 
 router.use(cors())
 router.use(bodyParser.json())
+router.use(bodyParser.urlencoded({ extended: false }));
 
 router.get('/', auth, async (req, res) => {
   try {
