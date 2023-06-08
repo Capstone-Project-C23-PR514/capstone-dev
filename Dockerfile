@@ -8,13 +8,13 @@ WORKDIR /app
 COPY requirements.txt .
 
 # Menginstal dependensi
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install -r requirements.txt
 
 # Menyalin kode aplikasi ke dalam image
-COPY app/ .
+COPY . .
 
 # Menyalin file credentials.json ke dalam image
-COPY credentials.json .
+COPY lippo-capstone.json .
 
 # Menjalankan aplikasi
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]
