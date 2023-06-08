@@ -20,10 +20,10 @@ const authenticateJWT = async (req, res, next) => {
       req.user = user;
       next()
     } else {
-      res.status(401).json({ error: 'Token tidak tersedia' })
+      res.status(401).json({ error: 'Not Authorized' })
     }
   } catch (err) {
-    res.status(403).json({ error: 'Token tidak valid' })
+    res.status(403).json({ error: 'Authorized is not validate' })
   }
 }
 

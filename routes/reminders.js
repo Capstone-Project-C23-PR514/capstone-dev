@@ -7,9 +7,11 @@ const bodyParser = require("body-parser");
 const auth = require("../middleware/auth");
 const multer = require("multer");
 const { Storage } = require("@google-cloud/storage");
+const Sequelize = require("sequelize");
 
 router.use(cors());
 router.use(bodyParser.json());
+router.use(bodyParser.urlencoded({ extended: false }));
 
 // Konfigurasi penyimpanan file menggunakan Multer
 const storage = multer.memoryStorage();
@@ -89,6 +91,32 @@ router.post("/create", auth, upload.single("gambar"), async (req, res) => {
     console.error("Error saat mengolah data:", error);
     res.status(500).json({
       error: "Terjadi kesalahan",
+    });
+  }
+});
+
+router.get("/search", auth, async (req, res) => {
+  try {
+    const reminder = await RemindersModel.findAll({
+      where: {
+        [Sequelize.Op.or]: [
+          { lokasi: { [Sequelize.Op.like]: `%${req.query.search}%` } },
+          { catatan: { [Sequelize.Op.like]: `%${req.query.search}%` } },
+        ],
+      },
+    });
+    if (reminder.length > 0) {
+      res.status(200).json({
+        data: reminder,
+      });
+    } else {
+      res.status(200).json({
+        message: "Data tidak ditemukan",
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      error: "Pencarian gagal",
     });
   }
 });

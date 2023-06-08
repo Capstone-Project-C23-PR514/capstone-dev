@@ -8,6 +8,7 @@ const { Sequelize } = require("sequelize")
 
 router.use(cors())
 router.use(bodyParser.json())
+router.use(bodyParser.urlencoded({ extended: false }));
 
 // Rute untuk menerima data dari FastAPI dan menyimpan data di tabel reports
 router.post('/upload', auth, async (req, res) => {

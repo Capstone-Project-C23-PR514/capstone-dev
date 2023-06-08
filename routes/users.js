@@ -102,7 +102,7 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.get("/search", async (req, res) => {
+router.get("/search", auth, async (req, res) => {
   try {
     const report = await ReportsModel.findAll({
       where: {
