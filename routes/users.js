@@ -38,6 +38,31 @@ router.get("/", auth, async (req, res) => {
   }
 });
 
+router.get("/detail/:reportId", auth, async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const reportId = req.params.reportId;
+
+    // Mengambil data report berdasarkan user_id dan report_id
+    const data = await ReportsModel.findOne({
+      where: { user_id: userId, id: reportId },
+    });
+
+    if (!data) {
+      return res.status(404).json({ error: "Report not found" });
+    }
+
+    res.status(200).json({
+      data: data,
+    });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: "Terjadi kesalahan saat mengambil detail report" });
+  }
+});
+
+
 router.post("/register", async (req, res) => {
   const { nama_lengkap, email, password } = req.body;
 

@@ -95,6 +95,30 @@ router.post("/create", auth, upload.single("gambar"), async (req, res) => {
   }
 });
 
+router.get("/detail/:reminderId", auth, async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const reminderId = req.params.reminderId;
+
+    // Mengambil data report berdasarkan user_id dan report_id
+    const data = await RemindersModel.findOne({
+      where: { user_id: userId, id: reminderId },
+    });
+
+    if (!data) {
+      return res.status(404).json({ error: "Report not found" });
+    }
+
+    res.status(200).json({
+      data: data,
+    });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: "Terjadi kesalahan saat mengambil detail report" });
+  }
+});
+
 router.get("/search", auth, async (req, res) => {
   try {
     const reminder = await RemindersModel.findAll({
@@ -120,5 +144,28 @@ router.get("/search", auth, async (req, res) => {
     });
   }
 });
+
+router.delete("/delete/:reminderId", auth, async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const reminderId = req.params.reminderId;
+
+    // Menghapus data reminder berdasarkan user_id dan reminder_id
+    const deletedReminder = await RemindersModel.destroy({
+      where: { user_id: userId, id: reminderId },
+    });
+
+    if (deletedReminder === 0) {
+      return res.status(404).json({ error: "Reminder not found" });
+    }
+
+    res.status(200).json({
+      message: "Reminder successfully deleted",
+    });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to delete reminder" });
+  }
+});
+
 
 module.exports = router;

@@ -36,6 +36,28 @@ router.post('/upload', auth, async (req, res) => {
   }
 })
 
+router.delete("/delete/:reportId", auth, async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const reportId = req.params.reportId;
+
+    // Menghapus data reminder berdasarkan user_id dan reminder_id
+    const deletedReport = await ReportsModel.destroy({
+      where: { user_id: userId, id: reportId },
+    });
+
+    if (deletedReport === 0) {
+      return res.status(404).json({ error: "Report not found" });
+    }
+
+    res.status(200).json({
+      message: "Report successfully deleted",
+    });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to delete report" });
+  }
+});
+
 
 
 module.exports = router
