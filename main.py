@@ -12,7 +12,7 @@ os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "lippo-capstone.json"
 
 bucket_name = 'road-crack-model'
 model_filename = 'model_CNN2.h5'
-backend_url = 'https://api-test-4qeqxjz7lq-et.a.run.app'
+backend_url = 'http://localhost:8080'
 
 app = FastAPI()
 client = storage.Client()
@@ -42,13 +42,13 @@ async def predict(judul: str = Form(...), lokasi: str = Form(...),image: UploadF
     blob = bucket.blob(image.filename)
     image.file.seek(0)
     blob.upload_from_file(image.file, content_type=image.content_type)
-    gambar_url = blob.public_url
+    gambar = blob.public_url
     
     headers = {'Authorization': token}
-    payload = {'judul': judul, 'lokasi': lokasi, 'desc': predicted_class, 'akurasi': accuracy, 'gambar': gambar_url}
+    payload = {'judul': judul, 'lokasi': lokasi, 'desc': predicted_class, 'akurasi': accuracy, 'gambar': gambar}
     response = requests.post(f"{backend_url}/reports/upload", json=payload, headers=headers)
     
-    return {'judul': judul, 'gambar': gambar_url, 'lokasi': lokasi, 'desc': predicted_class,  'akurasi': accuracy, }
+    return {'judul': judul, 'gambar': gambar, 'lokasi': lokasi, 'desc': predicted_class,  'akurasi': accuracy, }
 
 if __name__ == '__main__':
     uvicorn.run(app, host='0.0.0.0', port=int(os.environ.get('PORT', 3000)))
