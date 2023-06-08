@@ -1,6 +1,6 @@
-const { Model, DataTypes } = require('sequelize')
-const sequelize = require('../database/db_config')
-const UsersModel = require('./users')
+const { Model, DataTypes } = require("sequelize");
+const sequelize = require("../database/db_config");
+const UsersModel = require("./users");
 
 class Report extends Model {}
 
@@ -10,8 +10,11 @@ Report.init(
       type: DataTypes.INTEGER,
       references: {
         model: UsersModel,
-        key: 'id',
+        key: "id",
       },
+    },
+    judul: {
+      type: DataTypes.STRING,
     },
     gambar: {
       type: DataTypes.TEXT,
@@ -28,10 +31,10 @@ Report.init(
   },
   {
     sequelize,
-    modelName: 'reports',
+    modelName: "reports",
   }
 );
 
-Report.belongsTo(UsersModel, { foreignKey: 'user_id' })
+Report.belongsTo(UsersModel, { foreignKey: "user_id" });
 
-module.exports = Report
+module.exports = Report;

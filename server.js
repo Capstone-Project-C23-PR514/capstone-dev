@@ -10,6 +10,7 @@ sequelize.sync().then(() => {
 
 const userEndpoint = require('./routes/users')
 const reportEndpoint = require('./routes/reports')
+const reminderEndpoint = require('./routes/reminders')
 
 const app = express()
 app.use(express.static(__dirname))
@@ -18,6 +19,7 @@ app.use(express.json())
 
 app.use('/', userEndpoint)
 app.use('/reports', reportEndpoint)
+app.use('/reminders', reminderEndpoint)
 
 app.listen(port, '0.0.0.0', () => {
     console.log(`App is listening on port ${port}`)
