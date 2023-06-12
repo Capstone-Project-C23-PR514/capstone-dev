@@ -20,6 +20,14 @@ router.get("/", auth, async (req, res) => {
   try {
     const userId = req.user.id;
 
+    const isTokenBlacklisted = await BlacklistedToken.findOne({
+      where: { token: req.headers.authorization },
+    });
+
+    if (isTokenBlacklisted) {
+      return res.status(401).json({ error: "Token tidak valid" });
+    }
+
     // Mengambil data report berdasarkan user_id
     const reports = await ReportsModel.findAll({
       where: { user_id: userId },
@@ -61,7 +69,6 @@ router.get("/detail/:reportId", auth, async (req, res) => {
       .json({ error: "Terjadi kesalahan saat mengambil detail report" });
   }
 });
-
 
 router.post("/register", async (req, res) => {
   const { nama_lengkap, email, password } = req.body;
@@ -116,14 +123,32 @@ router.post("/login", async (req, res) => {
     );
 
     res.status(200).json({
-      users: user,
+      loginUsers: {
+        user_id: user.id,
+        nama_lengkap: user.nama_lengkap,
+        token: token,
+      },
       message: "Login berhasil",
-      token: token,
     });
   } catch (error) {
     res
       .status(500)
       .json({ error: "Terjadi kesalahan saat memverifikasi pengguna" });
+  }
+});
+
+const BlacklistedToken = require("../models/blacklistedToken");
+
+router.post("/logout", auth, async (req, res) => {
+  try {
+    const token = req.headers.authorization;
+
+    // Tambahkan token ke daftar token yang tidak valid (blacklist)
+    await BlacklistedToken.create({ token });
+
+    res.status(200).json({ message: "Logout berhasil" });
+  } catch (error) {
+    res.status(500).json({ error: "Terjadi kesalahan saat melakukan logout" });
   }
 });
 
