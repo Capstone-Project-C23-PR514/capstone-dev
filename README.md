@@ -48,7 +48,7 @@ Retrieve the dashboard data for authenticated users.
         
         ```json
         {
-            "error": "Unauthorized validation failed"
+            "error": "Authorized is not validate"
         }
         ```
         
@@ -57,7 +57,7 @@ Retrieve the dashboard data for authenticated users.
         
         ```json
         { 
-            "error": "An error occurred while retrieving report data" 
+            "error": "Terjadi kesalahan saat mengambil data report" 
         }
         ```
         
@@ -126,7 +126,7 @@ Retrieve detailed information for a specific report.
         
         ```json
         { 
-            "error": "An error occurred while retrieving report details" 
+            "error": "Terjadi kesalahan saat mengambil data report" 
         }
         ```
         
@@ -140,7 +140,7 @@ Register a new user.
 **Parameters:**
 
 - Body:
-    - **`full_name`** (string, required) - User's full name
+    - **`nama_lengkap`** (string, required) - User's full name
     - **`email`** (string, required) - User's email address
     - **`password`** (string, required) - User's password
 
@@ -152,16 +152,14 @@ Register a new user.
         ```json
         {
             "registered": {
-                "id": 
-
-25,
+                "id": 25,
                 "full_name": "Muhammad Nurfatkhur Rahman",
                 "email": "mhmdnurf215@gmail.com",
                 "password": "$2a$10$sDpg9R8iP5IlOHHXrMN1dOWDinEOXXDqB5oyv9Dd47YCDbvwIzI8m",
                 "updatedAt": "2023-06-09T18:57:51.798Z",
                 "createdAt": "2023-06-09T18:57:51.798Z"
             },
-            "message": "Registration successful"
+            "message": "Register berhasil"
         }
         ```
         
@@ -170,7 +168,7 @@ Register a new user.
         
         ```json
         {
-            "message": "Registration failed"
+            "message": "Register gagal"
         }
         ```
         
@@ -197,7 +195,7 @@ Authenticate the user and get an access token.
                 "full_name": "zaka",
                 "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiZW1haWwiOiJ6YWxkZWJhcmVuekBnbWFpbC5jb20iLCJpYXQiOjE2ODY3MzE4MzAsImV4cCI6MTcxODI2NzgzMH0.PhQvRdt72awvEWajZsES5E"
             },
-            "message": "Login successful"
+            "message": "Login berhasil"
         }
         ```
         
@@ -206,7 +204,7 @@ Authenticate the user and get an access token.
         
         ```json
         {
-            "error": "Please fill in all fields"
+            "error": "Mohon lengkapi semua field"
         }
         ```
         
@@ -215,7 +213,7 @@ Authenticate the user and get an access token.
         
         ```json
         {
-            "error": "Invalid email or password"
+            "error": "Email atau password salah"
         }
         ```
         
@@ -224,7 +222,7 @@ Authenticate the user and get an access token.
         
         ```json
         {
-            "error": "An error occurred while verifying the user"
+            "error": "Terjadi kesalahan saat memverifikasi pengguna"
         }
         ```
     
@@ -266,7 +264,7 @@ Search for reports based on title or description.
         
         ```json
         {
-          "message": "Data not found"
+          "message": "Data tidak ditemukan"
         }
         ```
         
@@ -275,9 +273,7 @@ Search for reports based on title or description.
         
         ```json
         {
-            "error": "Not
-
- Authorized"
+            "error": "Not Authorized"
         }
         ```
         
@@ -286,7 +282,7 @@ Search for reports based on title or description.
         
         ```json
         {
-            "error": "Unauthorized validation failed"
+            "error": "Authorized is not validate"
         }
         ```
         
@@ -295,6 +291,6 @@ Search for reports based on title or description.
         
         ```json
         {
-            "error": "An error occurred while retrieving the data"
+            "error": "Pencarian gagal"
         }
         ```
