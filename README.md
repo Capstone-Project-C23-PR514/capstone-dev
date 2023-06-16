@@ -1,12 +1,12 @@
 ## API Documentation
 
-### **Endpoint:** https://road-crack-model-4qeqxjz7lq-et.a.run.app
+### **Endpoint:** https://model-api-cqk5st7fhq-et.a.run.app
 
 ---
 
 ### **POST /predict**
 
-This endpoint predicts the class of an uploaded image and sends the prediction along with other data to the backend server.
+This endpoint predicts the class of an uploaded image and sends the prediction along with other data to the backend server. (You need to login first with express API)
 
 **Parameters:**
 
