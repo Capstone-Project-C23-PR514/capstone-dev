@@ -21,11 +21,11 @@ Retrieve the dashboard data for authenticated users.
         {
           "id": 2,
           "user_id": 8,
-          "title": "Jalan Bagus",
-          "image": "https://storage.googleapis.com/road-crack-model/198cbb422e576db97580ed96450decfe.jpg",
-          "location": "Bintan",
-          "description": "good",
-          "accuracy": "93",
+          "judul": "Jalan Bagus",
+          "gambar": "https://storage.googleapis.com/road-crack-model/198cbb422e576db97580ed96450decfe.jpg",
+          "lokasi": "Bintan",
+          "desc": "good",
+          "akurasi": "93",
           "createdAt": "2023-06-08T22:11:08.000Z",
           "updatedAt": "2023-06-08T22:11:08.000Z"
         }
@@ -74,11 +74,11 @@ Retrieve detailed information for a specific report.
       "data": {
         "id": 2,
         "user_id": 8,
-        "title": "Jalan Bagus",
-        "image": "https://storage.googleapis.com/road-crack-model/198cbb422e576db97580ed96450decfe.jpg",
-        "location": "Bintan",
-        "description": "good",
-        "accuracy": "93",
+        "judul": "Jalan Bagus",
+        "gambar": "https://storage.googleapis.com/road-crack-model/198cbb422e576db97580ed96450decfe.jpg",
+        "lokasi": "Bintan",
+        "desc": "good",
+        "akurasi": "93",
         "createdAt": "2023-06-08T22:11:08.000Z",
         "updatedAt": "2023-06-08T22:11:08.000Z"
       }
@@ -134,7 +134,7 @@ Register a new user.
     {
       "registered": {
         "id": 25,
-        "full_name": "Muhammad Nurfatkhur Rahman",
+        "nama_lengkap": "Muhammad Nurfatkhur Rahman",
         "email": "mhmdnurf215@gmail.com",
         "password": "$2a$10$sDpg9R8iP5IlOHHXrMN1dOWDinEOXXDqB5oyv9Dd47YCDbvwIzI8m",
         "updatedAt": "2023-06-09T18:57:51.798Z",
@@ -171,7 +171,7 @@ Authenticate the user and get an access token.
     {
       "loginUsers": {
         "user_id": 8,
-        "full_name": "zaka",
+        "nama_lengkap": "zaka",
         "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiZW1haWwiOiJ6YWxkZWJhcmVuekBnbWFpbC5jb20iLCJpYXQiOjE2ODY3MzE4MzAsImV4cCI6MTcxODI2NzgzMH0.PhQvRdt72awvEWajZsES5E"
       },
       "message": "Login berhasil"
@@ -220,11 +220,11 @@ Search for reports based on title or description.
         {
           "id": 2,
           "user_id": 8,
-          "title": "Jalan Bagus",
-          "image": "https://storage.googleapis.com/road-crack-model/198cbb422e576db97580ed96450decfe.jpg",
-          "location": "Bintan",
-          "description": "good",
-          "accuracy": "93",
+          "judul": "Jalan Bagus",
+          "gambar": "https://storage.googleapis.com/road-crack-model/198cbb422e576db97580ed96450decfe.jpg",
+          "lokasi": "Bintan",
+          "desc": "good",
+          "akurasi": "93",
           "createdAt": "2023-06-08T22:11:08.000Z",
           "updatedAt": "2023-06-08T22:11:08.000Z"
         }
