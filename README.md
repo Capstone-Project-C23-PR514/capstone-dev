@@ -23,7 +23,7 @@ Retrieve the dashboard data for authenticated users.
           "user_id": 8,
           "title": "Jalan Bagus",
           "image": "https://storage.googleapis.com/road-crack-model/198cbb422e576db97580ed96450decfe.jpg",
-          "location": "Bintan",
+          "lokasi": "Bintan",
           "description": "good",
           "accuracy": "93",
           "createdAt": "2023-06-08T22:11:08.000Z",
