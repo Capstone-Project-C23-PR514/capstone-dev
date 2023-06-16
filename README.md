@@ -1,6 +1,6 @@
 ## **API Documentation for '/' Endpoint**
 
-### **Endpoint:** https://api-test-4qeqxjz7lq-et.a.run.app
+### **Endpoint:** https://backend-api-cqk5st7fhq-et.a.run.app
 
 ### GET /
 
@@ -171,7 +171,7 @@ Authenticate the user and get an access token.
     {
       "loginUsers": {
         "user_id": 8,
-        "nama_lengkap": "zaka",
+        "full_name": "zaka",
         "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwiZW1haWwiOiJ6YWxkZWJhcmVuekBnbWFpbC5jb20iLCJpYXQiOjE2ODY3MzE4MzAsImV4cCI6MTcxODI2NzgzMH0.PhQvRdt72awvEWajZsES5E"
       },
       "message": "Login berhasil"
@@ -223,7 +223,7 @@ Search for reports based on title or description.
           "judul": "Jalan Bagus",
           "gambar": "https://storage.googleapis.com/road-crack-model/198cbb422e576db97580ed96450decfe.jpg",
           "lokasi": "Bintan",
-          "desc": "good",
+          "description": "good",
           "akurasi": "93",
           "createdAt": "2023-06-08T22:11:08.000Z",
           "updatedAt": "2023-06-08T22:11:08.000Z"
@@ -301,77 +301,13 @@ Delete a report from the reports table.
 
 ---
 
-## **API Documentation for uploading reports**
-
-### **Endpoint:** https://road-crack-model-4qeqxjz7lq-et.a.run.app
-
-### POST /predict
-
-Upload a report to the reports table.
-
-**Parameters:**
-
-- Headers:
-
-  - **`Authorization`** (Bearer token) - User authentication token
-
-- Body:
-  - **`judul`** (string, required) - Report title
-  - **`image`** (string, required) - Report image URL
-  - **`lokasi`** (string, required) - Report location
-
-**Response:**
-
-- 200 OK
-  - Example Response:
-    ```json
-    {
-      "status": 200,
-      "message": "Data berhasil diinput",
-      "data": {
-        "id": 2,
-        "user_id": 8,
-        "judul": "Jalan Bagus",
-        "gambar": "https://storage.googleapis.com/road-crack-model/198cbb422e576db97580ed96450decfe.jpg",
-        "lokasi": "Bintan",
-        "desc": "good",
-        "akurasi": "93",
-        "createdAt": "2023-06-08T22:11:08.000Z",
-        "updatedAt": "2023-06-08T22:11:08.000Z"
-      }
-    }
-    ```
-- 400 Bad Request
-  - Example Response:
-    ```json
-    {
-      "error": "Terjadi kesalahan saat menginput data"
-    }
-    ```
-- 401 Unauthorized
-  - Example Response:
-    ```json
-    {
-      "error": "Please provide authorization header"
-    }
-    ```
-- 500 Internal Server Error
-  - Example Response:
-    ```json
-    {
-      "error": "An error occurred while inputting data"
-    }
-    ```
-
----
-
 ## **API Documentation or '/reminders' Endpoint**
 
 ### **Endpoint:** https://api-test-4qeqxjz7lq-et.a.run.app/reminders
 
 ### GET /
 
-Mengembalikan daftar semua pengingat (reminders) yang terdaftar dalam sistem.
+Retrieve a list of all registered reminders in the system.
 
 **Parameter:**
 
@@ -380,7 +316,7 @@ Mengembalikan daftar semua pengingat (reminders) yang terdaftar dalam sistem.
 **Respons:**
 
 - 200 OK
-  - Contoh Respons:
+  - Example Respons:
     ```json
     {
       "data": [
@@ -399,21 +335,21 @@ Mengembalikan daftar semua pengingat (reminders) yang terdaftar dalam sistem.
     }
     ```
 - 401 Unauthorized
-  - Contoh Respons:
+  - Example Respons:
     ```json
     {
       "error": "Not Authorized"
     }
     ```
 - 403 Forbidden
-  - Contoh Respons:
+  - Example Respons:
     ```json
     {
       "error": "Authorized is not validate"
     }
     ```
 - 500 Internal Server Error
-  - Contoh Respons:
+  - Example Respons:
     ```json
     {
       "error": "Terjadi kesalahan"
@@ -424,22 +360,22 @@ Mengembalikan daftar semua pengingat (reminders) yang terdaftar dalam sistem.
 
 ### POST /create
 
-Membuat pengingat baru.
+Create a new reminder.
 
 **Parameter:**
 
 - Header: **`Authorization`** (Bearer token)
 - Body:
-  - **`tanggal_awal`** (date, required) - Tanggal dimulai
-  - **`tanggal_akhir`** (date, required) - Tanggal berakhir
-  - **`gambar`** (string, required) - Gambar proyek jalan
-  - **`lokasi`** (string, required) - Lokasi proyek
-  - **`catatan`** (string, required) - Catatan
+  - **`tanggal_awal`** (date, required) - Start date
+  - **`tanggal_akhir`** (date, required) - End date
+  - **`gambar`** (string, required) - Road project image
+  - **`lokasi`** (string, required) - Project Location
+  - **`catatan`** (string, required) - Note
 
 **Respons:**
 
 - 200 OK
-  - Contoh Respons:
+  - Example Respons:
     ```json
     {
       "message": "Data reminder berhasil diinput",
@@ -457,21 +393,21 @@ Membuat pengingat baru.
     }
     ```
 - 401 Unauthorized
-  - Contoh Respons:
+  - Example Respons:
     ```json
     {
       "error": "Not Authorized"
     }
     ```
 - 403 Forbidden
-  - Contoh Respons:
+  - Example Respons:
     ```json
     {
       "error": "Authorized is not validate"
     }
     ```
 - 500 Internal Server Error
-  - Contoh Respons:
+  - Example Respons:
     ```json
     {
       "error": "Data Gagal diinput"
@@ -482,8 +418,6 @@ Membuat pengingat baru.
 
 ### POST /detail/:reminderId
 
-Mendaftarkan pengguna baru.
-
 **Parameter:**
 
 - Path : **`reminderId`** (string, required) - ID reminder
@@ -491,7 +425,7 @@ Mendaftarkan pengguna baru.
 **Respons:**
 
 - 200 OK
-  - Contoh Respons:
+  - Example Respons:
     ```json
     {
       "data": {
@@ -508,28 +442,28 @@ Mendaftarkan pengguna baru.
     }
     ```
 - 401 Unauthorized
-  - Contoh Respons:
+  - Example Respons:
     ```json
     {
       "error": "Not Authorized"
     }
     ```
 - 403 Forbidden
-  - Contoh Respons:
+  - Example Respons:
     ```json
     {
       "error": "Authorized is not validate"
     }
     ```
 - 404 Not Found
-  - Contoh Respons:
+  - Example Respons:
     ```json
     {
       "error": "Report not found"
     }
     ```
 - 500 Internal Server Error
-  - Contoh Respons:
+  - Example Respons:
     ```json
     {
       "error": "Terjadi kesalahan saat mengambil detail report"
@@ -540,8 +474,6 @@ Mendaftarkan pengguna baru.
 
 ### PUT /edit/:reminderId
 
-Autentikasi pengguna dan mendapatkan token akses.
-
 **Parameter:**
 
 - Path : **`reminderId`** (string, required) - ID reminder
@@ -549,28 +481,28 @@ Autentikasi pengguna dan mendapatkan token akses.
 **Respons:**
 
 - 200 OK
-  - Contoh Respons:
+  - Example Respons:
     ```json
     {
       "message": "Data reminder berhasil diupdate"
     }
     ```
 - 401 Unauthorized
-  - Contoh Respons:
+  - Example Respons:
     ```json
     {
       "error": "Not Authorized"
     }
     ```
 - 403 Forbidden
-  - Contoh Respons:
+  - Example Respons:
     ```json
     {
       "error": "Authorized is not validate"
     }
     ```
 - 500 Internal Server Error
-- Contoh Respons:
+- Example Respons:
   ```json
   {
     "error": "Terjadi kesalahan saat memverifikasi pengguna"
@@ -581,17 +513,17 @@ Autentikasi pengguna dan mendapatkan token akses.
 
 ### GET /search
 
-Mencari laporan berdasarkan judul atau deskripsi.
+Search for reports based on title or description.
 
 **Parameter:**
 
 - Header: **`Authorization`** (Bearer token)
-- Query: **`search`** (string, required) - Kata kunci pencarian berdasarkan judul dan desc
+- Query: **`search`** (string, required) - Search keyword based on title and description.
 
 **Respons:**
 
 - 200 OK
-  - Contoh Respons:
+  - Example Respons:
     ```json
     {
       "data": [
@@ -609,22 +541,22 @@ Mencari laporan berdasarkan judul atau deskripsi.
       ]
     }
     ```
-- 200 OK (tanpa data)
-  - Contoh Respons:
+- 200 OK (without data)
+  - Example Respons:
     ```json
     {
       "message": "Data tidak ditemukan"
     }
     ```
 - 401 Unauthorized
-  - Contoh Respons:
+  - Example Respons:
     ```json
     {
       "error": "Not Authorized"
     }
     ```
 - 403 Forbidden
-  - Contoh Respons:
+  - Example Respons:
     ```json
     {
       "error": "Authorized is not validate"
@@ -632,7 +564,7 @@ Mencari laporan berdasarkan judul atau deskripsi.
     ```
 - 500 Internal Server Error
 
-  - Contoh Respons:
+  - Example Respons:
 
     ```json
     {
