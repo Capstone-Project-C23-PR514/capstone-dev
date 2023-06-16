@@ -20,7 +20,7 @@ const upload = multer({ storage: storage });
 // Buat instance Google Cloud Storage
 const storageClient = new Storage({
   projectId: process.env.GCS_PROJECT_ID,
-  keyFilename: "lippo-capstone.json", // Ganti dengan path yang benar ke file kredensial Anda
+  keyFilename: "road-crack.json", // Ganti dengan path yang benar ke file kredensial Anda
 });
 const bucket = storageClient.bucket("road-crack-model"); // Ganti dengan nama bucket Anda
 
